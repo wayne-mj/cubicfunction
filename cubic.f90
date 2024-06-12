@@ -9,7 +9,7 @@ program cubic
     integer, allocatable :: q(:), p(:)
     integer :: x, xp 
     integer, parameter :: range = 5
-    real :: x1, x2, x3, rem, y, xi, qa, qb, qc, xreal 
+    real :: x1, x2, x3, rem, y, cx1, cx2, cxi, qa, qb, qc, xreal 
     real, allocatable :: pq(:), temp(:)
     character(1), parameter :: newline = achar(10)
     logical :: graph, notone, notminusone
@@ -66,7 +66,9 @@ program cubic
         qc = (qb * x1) + c
         rem = (qc * x1) + d
         call quad_roots(qa, qb, qc, x2, x3)
+        call criticalpoints(a, b, c, cx1, cx2, cxi)
         print *, "Roots: ", x1, x2, x3
+        print *, "Critical points: ", cx1, cx2, cxi
         graph = .true.
     else
         do i = 1, size(pq)
@@ -77,7 +79,9 @@ program cubic
 
             if (rem == 0.) then
                 call quad_roots(qa, qb, qc, x2, x3)
+                call criticalpoints(a, b, c, cx1, cx2, cxi)
                 print *, "Roots: ", pq(i), x2, x3
+                print *, "Critical points: ", cx1, cx2, cxi
                 graph = .true.
             ! else
             !     print *, "No roots"

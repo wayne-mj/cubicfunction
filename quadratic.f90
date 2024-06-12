@@ -13,4 +13,22 @@ module quadratic
         x1 = (-b + sqrt(dis))/(2*a)
         x2 = (-b - sqrt(dis))/(2*a)
     end subroutine quad_roots
+
+    ! Function to calculate the critical points of a cubic equation
+    subroutine criticalpoints(a,c,b,x1,x2,xi)
+        integer, intent(in) :: a,b,c
+        real, intent(out) :: x1,x2,xi
+        real :: da, db, dc, dis
+
+        ! Coefficients of the derivative of the cubic equation
+        da = 3. * real(a)
+        db = 2. * real(b)
+        dc = real(c)
+
+        dis = (db**2) - (3*da*dc)
+
+        x1 = (-db + sqrt(dis))/(3*da)
+        x2 = (-db - sqrt(dis))/(3*da)
+        xi = -db/(3*da)
+    end subroutine criticalpoints
 end module quadratic
