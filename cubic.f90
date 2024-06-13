@@ -8,7 +8,8 @@ program cubic
     integer :: a, b, c, d, t, i,j, arrsize, count
     integer, allocatable :: q(:), p(:)
     integer :: x, xp 
-    integer, parameter :: range = 5
+    integer, parameter :: start = -1
+    integer, parameter :: end = 5
     real :: x1, x2, x3, rem, y, cx1, cx2, cxi, qa, qb, qc, xreal 
     real, allocatable :: pq(:), temp(:)
     character(1), parameter :: newline = achar(10)
@@ -92,8 +93,8 @@ program cubic
     ! If there are real roots, write the data to a file
     if (graph .eqv. .true.) then
         open (unit=10, file='cubic.dat', status='replace')
-        do x = -range, range
-            do xp = 1,range + 4
+        do x = start, end
+            do xp = 1,9
                 xreal = real(x) + (real(xp) / 10.)
                 y = (a*(real(xreal)**3)) + (b*(real(xreal**2))) + (c * (real(xreal))) + d
                 write (10, '(2F15.2)') real(xreal),  real(y)
