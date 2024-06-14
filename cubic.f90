@@ -2,6 +2,7 @@ program cubic
     use factors
     use mergesort
     use quadratic
+    use newton
     implicit none
 
     ! Rewriten to work with real numbers
@@ -48,7 +49,7 @@ program cubic
     p = factoring(d)
 
     ! Calculate p / q
-    arrsize = size(p)*size(q)
+    arrsize = (size(p)*size(q)) * 2
     allocate(pq(arrsize))
     do i = 1, size(q)
         do j = 1, size(p)
@@ -57,8 +58,18 @@ program cubic
         end do
     end do
 
+    do i = 1, size(q)
+        do j = 1, size(p)
+            pq(count) = -(real(p(j)) / real(q(i)))
+            count = count + 1
+        end do
+    end do
+
     call mergesort_real(pq, size(pq))
     
+    ! Debugging
+    !print *, "Factors: ", pq
+
     ! Synthetically divide the factors
     ! If the remainder is zero, then the factor is a root
     if (notone .eqv. .false. .or. notminusone .eqv. .false.) then
@@ -78,14 +89,20 @@ program cubic
             qc = (qb * pq(i)) + c
             rem = (qc * pq(i)) + d
 
+            ! Debugging
+            ! print *, "Remainder: ", rem
+
             if (rem == 0.) then
                 call quad_roots(qa, qb, qc, x2, x3)
                 call criticalpoints(a, b, c, cx1, cx2, cxi)
                 print *, "Roots: ", pq(i), x2, x3
                 print *, "Critical points: ", cx1, cx2, cxi
                 graph = .true.
-            ! else
-            !     print *, "No roots"
+             else
+                 print *, "No rational roots found."
+                 print *, "Trying Newton Raphson method."
+                 call newton_r(a, b, c, d, pq(i), 1.0e-7, x1)
+                 print *, "Possible root: ", x1
             end if
         end do
     end if
