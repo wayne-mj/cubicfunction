@@ -11,15 +11,16 @@ program cubic
     integer :: x, xp 
     integer, parameter :: start = -1
     integer, parameter :: end = 5
-    real :: x1, x2, x3, rem, y, cx1, cx2, cxi, qa, qb, qc, xreal 
+    real :: x1, x2, x3, rem, y, cx1, cx2, cxi, qa, qb, qc, xreal, lastx1
     real, allocatable :: pq(:), temp(:)
     character(1), parameter :: newline = achar(10)
-    logical :: graph, notone, notminusone
+    logical :: graph, notone, notminusone, found
 
     ! Set the flags to false
     notone = .false.
     notminusone = .false.
     graph = .false.
+    found = .false.
 
     count =1
 
@@ -82,6 +83,7 @@ program cubic
         print *, "Roots: ", x1, x2, x3
         print *, "Critical points: ", cx1, cx2, cxi
         graph = .true.
+        found = .true.
     else
         do i = 1, size(pq)
             qa = a
@@ -98,13 +100,28 @@ program cubic
                 print *, "Roots: ", pq(i), x2, x3
                 print *, "Critical points: ", cx1, cx2, cxi
                 graph = .true.
+                found = .true.
              else
                  print *, "No rational roots found."
-                 print *, "Trying Newton Raphson method."
-                 call newton_r(a, b, c, d, pq(i), 1.0e-7, x1)
-                 print *, "Possible root: ", x1
+                 found = .false.
+                !  print *, "Trying Newton Raphson method."
+                !  call newton_r(a, b, c, d, pq(i), 1.0e-7, x1)
+                !  print *, "Possible root: ", x1
             end if
         end do
+
+        ! If no rational roots are found, try the Newton Raphson method
+        if (found .eqv. .false.) then
+            print *, "Trying Newton Raphson method."
+            do i = 1, 150
+                call newton_r(a, b, c, d, real(i), 1.0e-7, x1)
+                ! Remove repeated roots
+                if (x1 .ne. lastx1) then
+                    print *, "Possible root: ", x1
+                end if
+                lastx1 = x1
+            end do
+        end if
     end if
 
     ! If there are real roots, write the data to a file
