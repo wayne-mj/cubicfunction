@@ -30,16 +30,15 @@ module factors
             local = -a
         end if
 
-        if (local == 1) then
-            count = 1
-            allocate(factors(count))
-            factors(count) = 1
-            if (neg) then
-                factors(count) = -1
-                return
-            end if
-            
-        end if
+        if (local == 1) then                    ! -+
+            count = 1                           !  |
+            allocate(factors(count))            !  |
+            factors(count) = 1                  !  |
+            if (neg) then                       !   Do I really need to assign and use count here?
+                factors(count) = -1             !  |
+                return                          !  |
+            end if                              !  |
+        end if                                  ! -+
 
         do i = 1, local
             if (mod(local, i) == 0) then
