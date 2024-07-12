@@ -26,8 +26,8 @@ program cubic
     ! Get the coefficients all at once
     write (*, '(A)', advance='no') 'Enter a, b, c, d: '
     read (*,*) a, b, c, d
-
     
+    ! Rational Root Theorem
     pq = candidates(a, d)
 
     do i = 1, size(pq)
@@ -35,8 +35,10 @@ program cubic
         print *, temp
     end do
     
+    ! Print a space between both outputs
     print *, " "
 
+    ! Newton-Raphson method
     do i = 1, size(pq)
         call newton_r(a, b, c, d, pq(i), 1e-7, xout)
         print *, xout
