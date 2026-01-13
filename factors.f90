@@ -4,6 +4,7 @@ module factors
     contains
 
     ! Factoring function
+    ! This function determines all the possible factors discarding those that are not
     function factoring(a) result(factors)
         integer, intent(in) :: a
         integer, allocatable :: factors(:)

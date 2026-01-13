@@ -7,6 +7,8 @@ module rationalroot
     contains
 
     ! Does x = 1
+    ! If x is 1 and the coefficients are real integers
+    ! then the sum of a, b, c, and d will be 0
     function x_equals_1(a,b,c,d) result(yes_or_no)
         integer, intent(in) :: a,b,c,d
         logical :: yes_or_no
@@ -17,6 +19,8 @@ module rationalroot
     end function x_equals_1
 
     ! Does x = -1
+    ! If x is -x and the coefficients are real integers
+    ! then the sum of a and c will equal the sum of b and d.
     function x_equals_minus_1(a,b,c,d) result(yes_or_no)
         integer, intent(in) :: a,b,c,d 
         logical :: yes_or_no
@@ -27,6 +31,8 @@ module rationalroot
     end function x_equals_minus_1
 
     ! Find the candidates for rational roots
+    ! This function finds all possible candidates for the synthetic 
+    ! division sorting them.
     function candidates (a,d) result(pq)
         integer, intent(in) :: a,d
         real, allocatable, dimension(:) :: pq
@@ -63,6 +69,9 @@ module rationalroot
     end function candidates
 
     ! Perform synthetic division
+    ! No matter how many videos I watch on synthetic division
+    ! I still do not understand it.
+    ! But this is what I cobbled together to get the quadratic equation.
     function syntheticdivision(a,b,c,d,x1) result(roots)
         integer, intent(in) :: a,b,c,d
         real, intent(in) :: x1

@@ -2,6 +2,12 @@ module newton
     implicit none
     contains
 
+    ! *******************************************
+    ! **  Be warned, I don't think I have coded
+    ! **  this function correctly as it is prone
+    ! **  to magic numbers
+    ! *******************************************
+
     ! Newton-Raphson method for solving a cubic equation
     subroutine newton_r(a,b,c,d,xin,tol, x)
         integer, intent(in) :: a,b,c,d
