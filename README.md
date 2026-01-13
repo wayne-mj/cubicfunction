@@ -21,4 +21,4 @@ Enter a, b, c, d: 1 -6 9 -4
 ```
 
 
-[^1]: I recently found some references to synthetic division, but I still do not understand it. (MathQueen)[https://www.youtube.com/@MathQueenSusanne] 
+[^1]: I recently found some references to synthetic division, but I still do not understand it. [MathQueen](https://www.youtube.com/@MathQueenSusanne)
